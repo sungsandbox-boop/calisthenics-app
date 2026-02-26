@@ -2,8 +2,9 @@ import random
 from database import get_db
 
 
-def generate_workout(level='beginner', focus='full body', duration=45, goal='strength', equipment='none'):
+def generate_workout(user_id, level='beginner', focus='full body', duration=45, goal='strength', equipment='none'):
     conn = get_db()
+    cur = conn.cursor()
 
     # Map level to difficulty range
     level_ranges = {
@@ -37,48 +38,48 @@ def generate_workout(level='beginner', focus='full body', duration=45, goal='str
 
     # Get user's current progression exercises for preference
     progression_exercises = set()
-    prog_data = conn.execute('''
+    cur.execute('''
         SELECT ps.exercise_id
         FROM user_progression_status ups
         JOIN progression_steps ps ON ups.progression_id = ps.progression_id
             AND ps.step_order = ups.current_step
-    ''').fetchall()
-    for row in prog_data:
+        WHERE ups.user_id = %s
+    ''', (user_id,))
+    for row in cur.fetchall():
         progression_exercises.add(row['exercise_id'])
 
     # Fetch candidate exercises
     equipment_filter = ""
-    eq_params = []
     if equipment == 'none':
         equipment_filter = " AND equipment = 'none'"
     elif equipment == 'bar':
         equipment_filter = " AND equipment IN ('none', 'bar')"
 
-    placeholders = ','.join('?' * len(categories))
+    placeholders = ','.join(['%s'] * len(categories))
     query = f'''
         SELECT * FROM exercises
         WHERE category IN ({placeholders})
-        AND difficulty BETWEEN ? AND ?
+        AND difficulty BETWEEN %s AND %s
         {equipment_filter}
         ORDER BY difficulty
     '''
-    params = categories + [diff_min, diff_max] + eq_params
-    candidates = conn.execute(query, params).fetchall()
-    candidates = [dict(r) for r in candidates]
+    params = categories + [diff_min, diff_max]
+    cur.execute(query, params)
+    candidates = [dict(r) for r in cur.fetchall()]
 
     # Also get warmup/mobility exercises
-    warmup = conn.execute('''
+    cur.execute('''
         SELECT * FROM exercises WHERE category = 'mobility' AND difficulty <= 2
         ORDER BY RANDOM() LIMIT 3
-    ''').fetchall()
-    warmup = [dict(r) for r in warmup]
+    ''')
+    warmup = [dict(r) for r in cur.fetchall()]
 
+    cur.close()
     conn.close()
 
     # Estimate exercise count based on duration
-    # Rough estimate: 5 min warmup + ~5 min per exercise (including rest)
-    available_time = duration - 5  # subtract warmup time
-    time_per_exercise = vol['sets'] * 1.5 + vol['rest'] * vol['sets'] / 60  # rough minutes
+    available_time = duration - 5
+    time_per_exercise = vol['sets'] * 1.5 + vol['rest'] * vol['sets'] / 60
     exercise_count = max(3, min(len(candidates), int(available_time / max(time_per_exercise, 3))))
 
     # Select exercises: prefer progression exercises, ensure category diversity
@@ -100,7 +101,6 @@ def generate_workout(level='beginner', focus='full body', duration=45, goal='str
             if ex['id'] not in used_ids:
                 by_category.setdefault(ex['category'], []).append(ex)
 
-        # Round-robin from categories
         cat_lists = list(by_category.values())
         for cat_exercises in cat_lists:
             random.shuffle(cat_exercises)
@@ -122,7 +122,6 @@ def generate_workout(level='beginner', focus='full body', duration=45, goal='str
     # Build the workout
     workout_exercises = []
 
-    # Add warmup exercises
     for i, ex in enumerate(warmup):
         workout_exercises.append({
             'exercise_id': ex['id'],
@@ -136,7 +135,6 @@ def generate_workout(level='beginner', focus='full body', duration=45, goal='str
             'order': i + 1,
         })
 
-    # Add main exercises
     for i, ex in enumerate(selected):
         is_skill = ex['category'] == 'skill'
         workout_exercises.append({

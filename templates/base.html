@@ -34,6 +34,10 @@
                     <span class="nav-icon">&#9881;</span><span class="nav-label">Settings</span>
                 </a></li>
             </ul>
+            <div class="nav-user">
+                <span class="nav-user-name">{{ current_user.name }}</span>
+                <a href="/logout" class="nav-user-logout">Log out</a>
+            </div>
         </nav>
         <main class="content">
             {% block content %}{% endblock %}

@@ -6,8 +6,9 @@ def seed():
     c = conn.cursor()
 
     # Check if already seeded
-    c.execute("SELECT COUNT(*) FROM exercises")
-    if c.fetchone()[0] > 0:
+    c.execute("SELECT COUNT(*) AS cnt FROM exercises")
+    if c.fetchone()['cnt'] > 0:
+        c.close()
         conn.close()
         return
 
@@ -104,10 +105,12 @@ def seed():
         ("Skin the Cat", "mobility", 4, "shoulders,core", "Rotate through a full circle on bar.", "Pull legs over, rotate back, return to hang", "bar", None),
     ]
 
-    c.executemany('''
-        INSERT INTO exercises (name, category, difficulty, muscle_groups, description, cues, equipment, video_url)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    ''', exercises)
+    for ex in exercises:
+        c.execute('''
+            INSERT INTO exercises (name, category, difficulty, muscle_groups, description, cues, equipment, video_url)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+            ON CONFLICT (name) DO NOTHING
+        ''', ex)
 
     # ── PROGRESSIONS ──────────────────────────────────────────
     progressions = [
@@ -125,17 +128,19 @@ def seed():
         ("Human Flag Progression", "skill", "From tuck flag to full human flag"),
     ]
 
-    c.executemany('''
-        INSERT INTO progressions (name, category, description)
-        VALUES (?, ?, ?)
-    ''', progressions)
+    for prog in progressions:
+        c.execute('''
+            INSERT INTO progressions (name, category, description)
+            VALUES (%s, %s, %s)
+            ON CONFLICT (name) DO NOTHING
+        ''', prog)
 
     # Helper: get exercise id by name
     def eid(name):
-        c.execute("SELECT id FROM exercises WHERE name = ?", (name,))
+        c.execute("SELECT id FROM exercises WHERE name = %s", (name,))
         row = c.fetchone()
         if row:
-            return row[0]
+            return row['id']
         return None
 
     # ── PROGRESSION STEPS ─────────────────────────────────────
@@ -235,23 +240,15 @@ def seed():
     }
 
     for prog_name, steps in progression_steps.items():
-        c.execute("SELECT id FROM progressions WHERE name = ?", (prog_name,))
-        prog_id = c.fetchone()[0]
+        c.execute("SELECT id FROM progressions WHERE name = %s", (prog_name,))
+        prog_id = c.fetchone()['id']
         for order, (ex_name, criteria) in enumerate(steps, 1):
             ex_id = eid(ex_name)
             if ex_id:
                 c.execute('''
                     INSERT INTO progression_steps (progression_id, step_order, exercise_id, criteria)
-                    VALUES (?, ?, ?, ?)
+                    VALUES (%s, %s, %s, %s)
                 ''', (prog_id, order, ex_id, criteria))
-
-    # ── INITIAL PROGRESSION STATUS (all start at step 1) ──────
-    c.execute("SELECT id FROM progressions")
-    for row in c.fetchall():
-        c.execute('''
-            INSERT OR IGNORE INTO user_progression_status (progression_id, current_step)
-            VALUES (?, 1)
-        ''', (row[0],))
 
     # ── PRESET ROUTINE TEMPLATES ──────────────────────────────
     templates = [
@@ -260,10 +257,11 @@ def seed():
         ("Advanced Skill-Focused", "Skill work with strength base", "advanced", "skills", 75, 1),
     ]
 
-    c.executemany('''
-        INSERT INTO routine_templates (name, description, level, focus, duration, is_preset)
-        VALUES (?, ?, ?, ?, ?, ?)
-    ''', templates)
+    for t in templates:
+        c.execute('''
+            INSERT INTO routine_templates (name, description, level, focus, duration, is_preset)
+            VALUES (%s, %s, %s, %s, %s, %s)
+        ''', t)
 
     # Beginner Full Body routine
     beginner_exercises = [
@@ -279,13 +277,13 @@ def seed():
     ]
 
     c.execute("SELECT id FROM routine_templates WHERE name = 'Beginner Full Body'")
-    tmpl_id = c.fetchone()[0]
+    tmpl_id = c.fetchone()['id']
     for ex_name, order, sets, reps, rest, notes in beginner_exercises:
         ex_id = eid(ex_name)
         if ex_id:
             c.execute('''
                 INSERT INTO routine_exercises (template_id, exercise_id, exercise_order, sets, reps, rest_seconds, notes)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
             ''', (tmpl_id, ex_id, order, sets, reps, rest, notes))
 
     # Intermediate PPL routine
@@ -303,13 +301,13 @@ def seed():
     ]
 
     c.execute("SELECT id FROM routine_templates WHERE name = 'Intermediate Push-Pull-Legs'")
-    tmpl_id = c.fetchone()[0]
+    tmpl_id = c.fetchone()['id']
     for ex_name, order, sets, reps, rest, notes in intermediate_exercises:
         ex_id = eid(ex_name)
         if ex_id:
             c.execute('''
                 INSERT INTO routine_exercises (template_id, exercise_id, exercise_order, sets, reps, rest_seconds, notes)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
             ''', (tmpl_id, ex_id, order, sets, reps, rest, notes))
 
     # Advanced Skill-Focused routine
@@ -326,16 +324,17 @@ def seed():
     ]
 
     c.execute("SELECT id FROM routine_templates WHERE name = 'Advanced Skill-Focused'")
-    tmpl_id = c.fetchone()[0]
+    tmpl_id = c.fetchone()['id']
     for ex_name, order, sets, reps, rest, notes in advanced_exercises:
         ex_id = eid(ex_name)
         if ex_id:
             c.execute('''
                 INSERT INTO routine_exercises (template_id, exercise_id, exercise_order, sets, reps, rest_seconds, notes)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
             ''', (tmpl_id, ex_id, order, sets, reps, rest, notes))
 
     conn.commit()
+    c.close()
     conn.close()
 
 
