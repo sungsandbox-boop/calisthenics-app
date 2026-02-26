@@ -253,6 +253,6 @@ def api_import():
 if __name__ == '__main__':
     database.init_db()
     seed_data.seed()
-    print("\n  CaliTrack - Calisthenics Tracker")
+    print("\n  Kaizen Cali")
     print("  Running at http://localhost:5001\n")
     app.run(debug=True, port=5001)
