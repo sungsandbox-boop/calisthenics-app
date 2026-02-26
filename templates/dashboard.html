@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% block title %}Dashboard{% endblock %}
 {% block content %}
-<h1>Dashboard</h1>
+<div class="dashboard-greeting">
+    <h1>Hey, {{ name }}</h1>
+    <p class="text-muted" id="greeting-subtitle">Let's get moving.</p>
+</div>
 
 <div class="stat-grid" id="stats-grid">
     <div class="stat-card">
@@ -20,6 +23,14 @@
         <div class="stat-value" id="stat-volume">-</div>
         <div class="stat-label">Total Reps</div>
     </div>
+    <div class="stat-card">
+        <div class="stat-value" id="stat-sets">-</div>
+        <div class="stat-label">Total Sets</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value" id="stat-avg">-</div>
+        <div class="stat-label">Avg Reps / Workout</div>
+    </div>
 </div>
 
 <div class="quick-actions">
@@ -37,10 +48,38 @@
     </a>
 </div>
 
-<div class="card">
-    <h2>Volume by Category (Last 4 Weeks)</h2>
-    <div class="chart-container">
-        <canvas id="volume-chart"></canvas>
+<div class="card" id="recent-workouts-card">
+    <h2>Recent Workouts</h2>
+    <div id="recent-workouts">
+        <div class="empty-state">
+            <div class="empty-state-icon">&#9998;</div>
+            <p>No workouts yet. <a href="/track">Log your first one!</a></p>
+        </div>
+    </div>
+</div>
+
+<div class="chart-grid">
+    <div class="card">
+        <h2>Volume by Category (4 Weeks)</h2>
+        <div class="chart-container">
+            <canvas id="volume-chart"></canvas>
+        </div>
+    </div>
+    <div class="card">
+        <h2>Category Breakdown</h2>
+        <div class="chart-container">
+            <canvas id="breakdown-chart"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="card" id="progression-card">
+    <h2>Progression Snapshot</h2>
+    <div id="progression-snapshot">
+        <div class="empty-state">
+            <div class="empty-state-icon">&#9650;</div>
+            <p>Start tracking your <a href="/progressions">progressions</a>.</p>
+        </div>
     </div>
 </div>
 {% endblock %}

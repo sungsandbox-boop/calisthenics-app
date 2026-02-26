@@ -1076,6 +1076,97 @@ th {
     color: var(--danger);
 }
 
+/* ── Dashboard Greeting ───────────────────────────────── */
+.dashboard-greeting {
+    margin-bottom: 24px;
+}
+
+.dashboard-greeting h1 {
+    margin-bottom: 4px;
+}
+
+.dashboard-greeting p {
+    font-size: 0.95rem;
+}
+
+/* ── Recent Workouts ─────────────────────────────────── */
+.recent-workout-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-glass);
+}
+
+.recent-workout-item:last-child {
+    border-bottom: none;
+}
+
+.recent-workout-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: block;
+}
+
+.recent-workout-meta {
+    font-size: 0.8rem;
+    color: var(--text-tertiary);
+}
+
+/* ── Chart Grid ──────────────────────────────────────── */
+.chart-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+    .chart-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ── Progression Snapshot ────────────────────────────── */
+.progress-snapshot-item {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border-glass);
+}
+
+.progress-snapshot-item:last-child {
+    border-bottom: none;
+}
+
+.progress-snapshot-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+}
+
+.progress-snapshot-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.progress-snapshot-detail {
+    margin-bottom: 8px;
+}
+
+.progress-bar-track {
+    width: 100%;
+    height: 6px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.6s cubic-bezier(0.2,0.9,0.3,1.0);
+}
+
 /* ── Mobile Only ──────────────────────────────────────── */
 .mobile-only { display: none; }
 

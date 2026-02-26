@@ -321,6 +321,49 @@ def get_dashboard_stats(user_id):
     ''', (user_id,))
     category_volume = cur.fetchall()
 
+    # Recent workouts (last 5)
+    cur.execute('''
+        SELECT w.id, w.name, w.workout_type, w.created_at, COUNT(ws.id) as set_count
+        FROM workouts w
+        LEFT JOIN workout_sets ws ON w.id = ws.workout_id
+        WHERE w.user_id = %s
+        GROUP BY w.id
+        ORDER BY w.created_at DESC
+        LIMIT 5
+    ''', (user_id,))
+    recent_workouts = cur.fetchall()
+
+    # Category breakdown (all time total reps per category)
+    cur.execute('''
+        SELECT e.category, SUM(COALESCE(ws.reps, 0)) as total
+        FROM workout_sets ws
+        JOIN exercises e ON ws.exercise_id = e.id
+        JOIN workouts w ON ws.workout_id = w.id
+        WHERE w.user_id = %s
+        GROUP BY e.category
+        ORDER BY total DESC
+    ''', (user_id,))
+    category_breakdown = cur.fetchall()
+
+    # Progression snapshot
+    cur.execute('''
+        SELECT p.name, p.category,
+               COALESCE(ups.current_step, 1) as current_step,
+               COUNT(ps.id) as total_steps,
+               (SELECT e.name FROM progression_steps ps2
+                JOIN exercises e ON ps2.exercise_id = e.id
+                WHERE ps2.progression_id = p.id AND ps2.step_order = COALESCE(ups.current_step, 1)
+               ) as current_exercise
+        FROM progressions p
+        LEFT JOIN user_progression_status ups ON ups.progression_id = p.id AND ups.user_id = %s
+        LEFT JOIN progression_steps ps ON ps.progression_id = p.id
+        GROUP BY p.id, p.name, p.category, ups.current_step
+        ORDER BY p.id
+    ''', (user_id,))
+    progression_snapshot = cur.fetchall()
+
+    avg_reps = round(total_volume / total_workouts) if total_workouts > 0 else 0
+
     cur.close()
     conn.close()
     return {
@@ -329,7 +372,11 @@ def get_dashboard_stats(user_id):
         'total_volume': total_volume,
         'week_workouts': week_workouts,
         'streak': streak,
+        'avg_reps': avg_reps,
         'category_volume': [dict(r) for r in category_volume],
+        'recent_workouts': [dict(r) for r in recent_workouts],
+        'category_breakdown': [dict(r) for r in category_breakdown],
+        'progression_snapshot': [dict(r) for r in progression_snapshot],
     }
 
 

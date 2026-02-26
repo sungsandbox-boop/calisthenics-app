@@ -102,7 +102,7 @@ def logout():
 @app.route('/')
 @login_required
 def dashboard():
-    return render_template('dashboard.html', active='dashboard')
+    return render_template('dashboard.html', active='dashboard', name=current_user.name)
 
 
 @app.route('/track')
