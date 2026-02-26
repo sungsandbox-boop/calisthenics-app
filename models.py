@@ -299,6 +299,8 @@ def get_dashboard_stats(user_id):
         today = date.today()
         for i, row in enumerate(days):
             day = row['d']
+            if isinstance(day, str):
+                day = date.fromisoformat(day)
             expected = today - timedelta(days=i)
             if day == expected:
                 streak += 1

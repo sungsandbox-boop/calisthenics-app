@@ -1,13 +1,104 @@
 import os
-import psycopg2
-from psycopg2.extras import RealDictCursor
+import re
+import sqlite3
 
-DATABASE_URL = os.environ.get('DATABASE_URL', 'postgresql://localhost/kaizen_cali')
+DATABASE_URL = os.environ.get('DATABASE_URL', '')
+USE_POSTGRES = bool(DATABASE_URL)
+
+if USE_POSTGRES:
+    import psycopg2
+    from psycopg2.extras import RealDictCursor
+
+
+# ── SQLite Compatibility Layer ───────────────────────────────
+# Wraps SQLite to accept PostgreSQL syntax so models.py,
+# seed_data.py, and generator.py work unchanged on both.
+
+class SQLiteCursor:
+    def __init__(self, cursor):
+        self._cursor = cursor
+        self._returning = False
+
+    def execute(self, query, params=None):
+        query = self._adapt(query)
+        if params:
+            self._cursor.execute(query, tuple(params))
+        else:
+            self._cursor.execute(query)
+        return self
+
+    def _adapt(self, q):
+        self._returning = False
+
+        # SERIAL PRIMARY KEY -> INTEGER PRIMARY KEY
+        q = re.sub(r'SERIAL\s+PRIMARY\s+KEY', 'INTEGER PRIMARY KEY', q, flags=re.I)
+
+        # RETURNING <col> — strip and flag for lastrowid
+        if re.search(r'\bRETURNING\s+\w+', q, flags=re.I):
+            q = re.sub(r'\s*RETURNING\s+\w+', '', q, flags=re.I)
+            self._returning = True
+
+        # ILIKE -> LIKE (SQLite LIKE is case-insensitive for ASCII)
+        q = re.sub(r'\bILIKE\b', 'LIKE', q, flags=re.I)
+
+        # CURRENT_DATE - INTERVAL 'N days' -> date('now', '-N days')
+        q = re.sub(
+            r"CURRENT_DATE\s*-\s*INTERVAL\s*'(\d+)\s*days?'",
+            r"date('now', '-\1 days')", q, flags=re.I
+        )
+
+        # EXTRACT(WEEK FROM col)::TEXT -> strftime('%W', col)
+        q = re.sub(
+            r"EXTRACT\s*\(\s*WEEK\s+FROM\s+([\w.]+)\s*\)::TEXT",
+            r"strftime('%W', \1)", q, flags=re.I
+        )
+
+        # col::date -> date(col)
+        q = re.sub(r'(\w+(?:\.\w+)?)::date', r'date(\1)', q, flags=re.I)
+
+        # %s -> ?
+        q = q.replace('%s', '?')
+
+        return q
+
+    def fetchone(self):
+        if self._returning:
+            return {'id': self._cursor.lastrowid}
+        row = self._cursor.fetchone()
+        return dict(row) if row else None
+
+    def fetchall(self):
+        return [dict(row) for row in self._cursor.fetchall()]
+
+    def close(self):
+        self._cursor.close()
+
+
+class SQLiteConnection:
+    def __init__(self, path):
+        self._conn = sqlite3.connect(path)
+        self._conn.row_factory = sqlite3.Row
+        self._conn.execute("PRAGMA foreign_keys = ON")
+
+    def cursor(self):
+        return SQLiteCursor(self._conn.cursor())
+
+    def commit(self):
+        self._conn.commit()
+
+    def close(self):
+        self._conn.close()
+
+
+# ── Public API ───────────────────────────────────────────────
+
+DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'kaizen_cali.db')
 
 
 def get_db():
-    conn = psycopg2.connect(DATABASE_URL, cursor_factory=RealDictCursor)
-    return conn
+    if USE_POSTGRES:
+        return psycopg2.connect(DATABASE_URL, cursor_factory=RealDictCursor)
+    return SQLiteConnection(DB_PATH)
 
 
 def init_db():

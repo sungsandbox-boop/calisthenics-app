@@ -172,8 +172,6 @@ a:hover { color: var(--primary-hover); }
         padding-bottom: calc(var(--nav-height) + 20px);
     }
 
-    /* Hide settings in mobile nav to save space */
-    .nav-links li:last-child { display: none; }
 }
 
 /* ── Typography ────────────────────────────────────────── */
