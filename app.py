@@ -6,6 +6,9 @@ import seed_data
 
 app = Flask(__name__)
 
+database.init_db()
+seed_data.seed()
+
 
 # ── Page Routes ───────────────────────────────────────────────
 
@@ -251,8 +254,6 @@ def api_import():
 # ── App Init ──────────────────────────────────────────────────
 
 if __name__ == '__main__':
-    database.init_db()
-    seed_data.seed()
     print("\n  Kaizen Cali")
     print("  Running at http://localhost:5001\n")
     app.run(debug=True, port=5001)
