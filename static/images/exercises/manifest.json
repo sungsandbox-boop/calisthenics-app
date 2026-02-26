@@ -1,0 +1,392 @@
+{
+  "Wall Push-Up": {
+    "slug": "wall-push-up",
+    "start": "/static/images/exercises/wall-push-up-start.png",
+    "end": "/static/images/exercises/wall-push-up-end.png"
+  },
+  "Incline Push-Up": {
+    "slug": "incline-push-up",
+    "start": "/static/images/exercises/incline-push-up-start.png",
+    "end": "/static/images/exercises/incline-push-up-end.png"
+  },
+  "Knee Push-Up": {
+    "slug": "knee-push-up",
+    "start": "/static/images/exercises/knee-push-up-start.png",
+    "end": "/static/images/exercises/knee-push-up-end.png"
+  },
+  "Push-Up": {
+    "slug": "push-up",
+    "start": "/static/images/exercises/push-up-start.png",
+    "end": "/static/images/exercises/push-up-end.png"
+  },
+  "Diamond Push-Up": {
+    "slug": "diamond-push-up",
+    "start": "/static/images/exercises/diamond-push-up-start.png",
+    "end": "/static/images/exercises/diamond-push-up-end.png"
+  },
+  "Wide Push-Up": {
+    "slug": "wide-push-up",
+    "start": "/static/images/exercises/wide-push-up-start.png",
+    "end": "/static/images/exercises/wide-push-up-end.png"
+  },
+  "Decline Push-Up": {
+    "slug": "decline-push-up",
+    "start": "/static/images/exercises/decline-push-up-start.png",
+    "end": "/static/images/exercises/decline-push-up-end.png"
+  },
+  "Archer Push-Up": {
+    "slug": "archer-push-up",
+    "start": "/static/images/exercises/archer-push-up-start.png",
+    "end": "/static/images/exercises/archer-push-up-end.png"
+  },
+  "Pseudo Planche Push-Up": {
+    "slug": "pseudo-planche-push-up",
+    "start": "/static/images/exercises/pseudo-planche-push-up-start.png",
+    "end": "/static/images/exercises/pseudo-planche-push-up-end.png"
+  },
+  "One-Arm Push-Up": {
+    "slug": "one-arm-push-up",
+    "start": "/static/images/exercises/one-arm-push-up-start.png",
+    "end": "/static/images/exercises/one-arm-push-up-end.png"
+  },
+  "Pike Push-Up": {
+    "slug": "pike-push-up",
+    "start": "/static/images/exercises/pike-push-up-start.png",
+    "end": "/static/images/exercises/pike-push-up-end.png"
+  },
+  "Elevated Pike Push-Up": {
+    "slug": "elevated-pike-push-up",
+    "start": "/static/images/exercises/elevated-pike-push-up-start.png",
+    "end": "/static/images/exercises/elevated-pike-push-up-end.png"
+  },
+  "Handstand Push-Up (Wall)": {
+    "slug": "handstand-push-up-wall",
+    "start": "/static/images/exercises/handstand-push-up-wall-start.png",
+    "end": "/static/images/exercises/handstand-push-up-wall-end.png"
+  },
+  "Freestanding HSPU": {
+    "slug": "freestanding-hspu",
+    "start": "/static/images/exercises/freestanding-hspu-start.png",
+    "end": "/static/images/exercises/freestanding-hspu-end.png"
+  },
+  "Planche Lean": {
+    "slug": "planche-lean",
+    "start": "/static/images/exercises/planche-lean-start.png",
+    "end": "/static/images/exercises/planche-lean-end.png"
+  },
+  "Tuck Planche": {
+    "slug": "tuck-planche",
+    "start": "/static/images/exercises/tuck-planche-start.png",
+    "end": "/static/images/exercises/tuck-planche-end.png"
+  },
+  "Straddle Planche": {
+    "slug": "straddle-planche",
+    "start": "/static/images/exercises/straddle-planche-start.png",
+    "end": "/static/images/exercises/straddle-planche-end.png"
+  },
+  "Full Planche": {
+    "slug": "full-planche",
+    "start": "/static/images/exercises/full-planche-start.png",
+    "end": "/static/images/exercises/full-planche-end.png"
+  },
+  "Dead Hang": {
+    "slug": "dead-hang",
+    "start": "/static/images/exercises/dead-hang-start.png",
+    "end": "/static/images/exercises/dead-hang-end.png"
+  },
+  "Scapular Pulls": {
+    "slug": "scapular-pulls",
+    "start": "/static/images/exercises/scapular-pulls-start.png",
+    "end": "/static/images/exercises/scapular-pulls-end.png"
+  },
+  "Australian Row": {
+    "slug": "australian-row",
+    "start": "/static/images/exercises/australian-row-start.png",
+    "end": "/static/images/exercises/australian-row-end.png"
+  },
+  "Negative Pull-Up": {
+    "slug": "negative-pull-up",
+    "start": "/static/images/exercises/negative-pull-up-start.png",
+    "end": "/static/images/exercises/negative-pull-up-end.png"
+  },
+  "Chin-Up": {
+    "slug": "chin-up",
+    "start": "/static/images/exercises/chin-up-start.png",
+    "end": "/static/images/exercises/chin-up-end.png"
+  },
+  "Pull-Up": {
+    "slug": "pull-up",
+    "start": "/static/images/exercises/pull-up-start.png",
+    "end": "/static/images/exercises/pull-up-end.png"
+  },
+  "Wide Pull-Up": {
+    "slug": "wide-pull-up",
+    "start": "/static/images/exercises/wide-pull-up-start.png",
+    "end": "/static/images/exercises/wide-pull-up-end.png"
+  },
+  "Close-Grip Pull-Up": {
+    "slug": "close-grip-pull-up",
+    "start": "/static/images/exercises/close-grip-pull-up-start.png",
+    "end": "/static/images/exercises/close-grip-pull-up-end.png"
+  },
+  "L-Sit Pull-Up": {
+    "slug": "l-sit-pull-up",
+    "start": "/static/images/exercises/l-sit-pull-up-start.png",
+    "end": "/static/images/exercises/l-sit-pull-up-end.png"
+  },
+  "Archer Pull-Up": {
+    "slug": "archer-pull-up",
+    "start": "/static/images/exercises/archer-pull-up-start.png",
+    "end": "/static/images/exercises/archer-pull-up-end.png"
+  },
+  "Typewriter Pull-Up": {
+    "slug": "typewriter-pull-up",
+    "start": "/static/images/exercises/typewriter-pull-up-start.png",
+    "end": "/static/images/exercises/typewriter-pull-up-end.png"
+  },
+  "Muscle-Up": {
+    "slug": "muscle-up",
+    "start": "/static/images/exercises/muscle-up-start.png",
+    "end": "/static/images/exercises/muscle-up-end.png"
+  },
+  "One-Arm Chin-Up": {
+    "slug": "one-arm-chin-up",
+    "start": "/static/images/exercises/one-arm-chin-up-start.png",
+    "end": "/static/images/exercises/one-arm-chin-up-end.png"
+  },
+  "Bodyweight Squat": {
+    "slug": "bodyweight-squat",
+    "start": "/static/images/exercises/bodyweight-squat-start.png",
+    "end": "/static/images/exercises/bodyweight-squat-end.png"
+  },
+  "Split Squat": {
+    "slug": "split-squat",
+    "start": "/static/images/exercises/split-squat-start.png",
+    "end": "/static/images/exercises/split-squat-end.png"
+  },
+  "Bulgarian Split Squat": {
+    "slug": "bulgarian-split-squat",
+    "start": "/static/images/exercises/bulgarian-split-squat-start.png",
+    "end": "/static/images/exercises/bulgarian-split-squat-end.png"
+  },
+  "Step-Up": {
+    "slug": "step-up",
+    "start": "/static/images/exercises/step-up-start.png",
+    "end": "/static/images/exercises/step-up-end.png"
+  },
+  "Jump Squat": {
+    "slug": "jump-squat",
+    "start": "/static/images/exercises/jump-squat-start.png",
+    "end": "/static/images/exercises/jump-squat-end.png"
+  },
+  "Cossack Squat": {
+    "slug": "cossack-squat",
+    "start": "/static/images/exercises/cossack-squat-start.png",
+    "end": "/static/images/exercises/cossack-squat-end.png"
+  },
+  "Pistol Squat (Assisted)": {
+    "slug": "pistol-squat-assisted",
+    "start": "/static/images/exercises/pistol-squat-assisted-start.png",
+    "end": "/static/images/exercises/pistol-squat-assisted-end.png"
+  },
+  "Pistol Squat": {
+    "slug": "pistol-squat",
+    "start": "/static/images/exercises/pistol-squat-start.png",
+    "end": "/static/images/exercises/pistol-squat-end.png"
+  },
+  "Shrimp Squat": {
+    "slug": "shrimp-squat",
+    "start": "/static/images/exercises/shrimp-squat-start.png",
+    "end": "/static/images/exercises/shrimp-squat-end.png"
+  },
+  "Nordic Curl (Assisted)": {
+    "slug": "nordic-curl-assisted",
+    "start": "/static/images/exercises/nordic-curl-assisted-start.png",
+    "end": "/static/images/exercises/nordic-curl-assisted-end.png"
+  },
+  "Nordic Curl": {
+    "slug": "nordic-curl",
+    "start": "/static/images/exercises/nordic-curl-start.png",
+    "end": "/static/images/exercises/nordic-curl-end.png"
+  },
+  "Glute Bridge": {
+    "slug": "glute-bridge",
+    "start": "/static/images/exercises/glute-bridge-start.png",
+    "end": "/static/images/exercises/glute-bridge-end.png"
+  },
+  "Single-Leg Glute Bridge": {
+    "slug": "single-leg-glute-bridge",
+    "start": "/static/images/exercises/single-leg-glute-bridge-start.png",
+    "end": "/static/images/exercises/single-leg-glute-bridge-end.png"
+  },
+  "Calf Raise": {
+    "slug": "calf-raise",
+    "start": "/static/images/exercises/calf-raise-start.png",
+    "end": "/static/images/exercises/calf-raise-end.png"
+  },
+  "Single-Leg Calf Raise": {
+    "slug": "single-leg-calf-raise",
+    "start": "/static/images/exercises/single-leg-calf-raise-start.png",
+    "end": "/static/images/exercises/single-leg-calf-raise-end.png"
+  },
+  "Dead Bug": {
+    "slug": "dead-bug",
+    "start": "/static/images/exercises/dead-bug-start.png",
+    "end": "/static/images/exercises/dead-bug-end.png"
+  },
+  "Plank": {
+    "slug": "plank",
+    "start": "/static/images/exercises/plank-start.png",
+    "end": "/static/images/exercises/plank-end.png"
+  },
+  "Side Plank": {
+    "slug": "side-plank",
+    "start": "/static/images/exercises/side-plank-start.png",
+    "end": "/static/images/exercises/side-plank-end.png"
+  },
+  "Hollow Body Hold": {
+    "slug": "hollow-body-hold",
+    "start": "/static/images/exercises/hollow-body-hold-start.png",
+    "end": "/static/images/exercises/hollow-body-hold-end.png"
+  },
+  "Hanging Knee Raise": {
+    "slug": "hanging-knee-raise",
+    "start": "/static/images/exercises/hanging-knee-raise-start.png",
+    "end": "/static/images/exercises/hanging-knee-raise-end.png"
+  },
+  "Hanging Leg Raise": {
+    "slug": "hanging-leg-raise",
+    "start": "/static/images/exercises/hanging-leg-raise-start.png",
+    "end": "/static/images/exercises/hanging-leg-raise-end.png"
+  },
+  "Toes to Bar": {
+    "slug": "toes-to-bar",
+    "start": "/static/images/exercises/toes-to-bar-start.png",
+    "end": "/static/images/exercises/toes-to-bar-end.png"
+  },
+  "Dragon Flag (Tuck)": {
+    "slug": "dragon-flag-tuck",
+    "start": "/static/images/exercises/dragon-flag-tuck-start.png",
+    "end": "/static/images/exercises/dragon-flag-tuck-end.png"
+  },
+  "Dragon Flag": {
+    "slug": "dragon-flag",
+    "start": "/static/images/exercises/dragon-flag-start.png",
+    "end": "/static/images/exercises/dragon-flag-end.png"
+  },
+  "Ab Wheel Rollout": {
+    "slug": "ab-wheel-rollout",
+    "start": "/static/images/exercises/ab-wheel-rollout-start.png",
+    "end": "/static/images/exercises/ab-wheel-rollout-end.png"
+  },
+  "Front Lever Tuck": {
+    "slug": "front-lever-tuck",
+    "start": "/static/images/exercises/front-lever-tuck-start.png",
+    "end": "/static/images/exercises/front-lever-tuck-end.png"
+  },
+  "Front Lever": {
+    "slug": "front-lever",
+    "start": "/static/images/exercises/front-lever-start.png",
+    "end": "/static/images/exercises/front-lever-end.png"
+  },
+  "Back Lever": {
+    "slug": "back-lever",
+    "start": "/static/images/exercises/back-lever-start.png",
+    "end": "/static/images/exercises/back-lever-end.png"
+  },
+  "Crow Pose": {
+    "slug": "crow-pose",
+    "start": "/static/images/exercises/crow-pose-start.png",
+    "end": "/static/images/exercises/crow-pose-end.png"
+  },
+  "Frog Stand": {
+    "slug": "frog-stand",
+    "start": "/static/images/exercises/frog-stand-start.png",
+    "end": "/static/images/exercises/frog-stand-end.png"
+  },
+  "Wall Handstand": {
+    "slug": "wall-handstand",
+    "start": "/static/images/exercises/wall-handstand-start.png",
+    "end": "/static/images/exercises/wall-handstand-end.png"
+  },
+  "Freestanding Handstand": {
+    "slug": "freestanding-handstand",
+    "start": "/static/images/exercises/freestanding-handstand-start.png",
+    "end": "/static/images/exercises/freestanding-handstand-end.png"
+  },
+  "Elbow Lever": {
+    "slug": "elbow-lever",
+    "start": "/static/images/exercises/elbow-lever-start.png",
+    "end": "/static/images/exercises/elbow-lever-end.png"
+  },
+  "Human Flag (Tuck)": {
+    "slug": "human-flag-tuck",
+    "start": "/static/images/exercises/human-flag-tuck-start.png",
+    "end": "/static/images/exercises/human-flag-tuck-end.png"
+  },
+  "Human Flag": {
+    "slug": "human-flag",
+    "start": "/static/images/exercises/human-flag-start.png",
+    "end": "/static/images/exercises/human-flag-end.png"
+  },
+  "Shoulder Dislocates": {
+    "slug": "shoulder-dislocates",
+    "start": "/static/images/exercises/shoulder-dislocates-start.png",
+    "end": "/static/images/exercises/shoulder-dislocates-end.png"
+  },
+  "Cat-Cow Stretch": {
+    "slug": "cat-cow-stretch",
+    "start": "/static/images/exercises/cat-cow-stretch-start.png",
+    "end": "/static/images/exercises/cat-cow-stretch-end.png"
+  },
+  "Deep Squat Hold": {
+    "slug": "deep-squat-hold",
+    "start": "/static/images/exercises/deep-squat-hold-start.png",
+    "end": "/static/images/exercises/deep-squat-hold-end.png"
+  },
+  "Wrist Circles": {
+    "slug": "wrist-circles",
+    "start": "/static/images/exercises/wrist-circles-start.png",
+    "end": "/static/images/exercises/wrist-circles-end.png"
+  },
+  "Hip Circles": {
+    "slug": "hip-circles",
+    "start": "/static/images/exercises/hip-circles-start.png",
+    "end": "/static/images/exercises/hip-circles-end.png"
+  },
+  "Arm Circles": {
+    "slug": "arm-circles",
+    "start": "/static/images/exercises/arm-circles-start.png",
+    "end": "/static/images/exercises/arm-circles-end.png"
+  },
+  "World's Greatest Stretch": {
+    "slug": "worlds-greatest-stretch",
+    "start": "/static/images/exercises/worlds-greatest-stretch-start.png",
+    "end": "/static/images/exercises/worlds-greatest-stretch-end.png"
+  },
+  "Pancake Stretch": {
+    "slug": "pancake-stretch",
+    "start": "/static/images/exercises/pancake-stretch-start.png",
+    "end": "/static/images/exercises/pancake-stretch-end.png"
+  },
+  "Pike Stretch": {
+    "slug": "pike-stretch",
+    "start": "/static/images/exercises/pike-stretch-start.png",
+    "end": "/static/images/exercises/pike-stretch-end.png"
+  },
+  "Bridge": {
+    "slug": "bridge",
+    "start": "/static/images/exercises/bridge-start.png",
+    "end": "/static/images/exercises/bridge-end.png"
+  },
+  "German Hang": {
+    "slug": "german-hang",
+    "start": "/static/images/exercises/german-hang-start.png",
+    "end": "/static/images/exercises/german-hang-end.png"
+  },
+  "Skin the Cat": {
+    "slug": "skin-the-cat",
+    "start": "/static/images/exercises/skin-the-cat-start.png",
+    "end": "/static/images/exercises/skin-the-cat-end.png"
+  }
+}

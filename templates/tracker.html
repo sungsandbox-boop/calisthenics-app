@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Workout Tracker{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>Workout Tracker</h1>
+    <button class="btn btn-primary" onclick="showNewWorkout()">+ New Workout</button>
+</div>
+
+<!-- New Workout Form -->
+<div id="new-workout" class="card hidden">
+    <h2>Log Workout</h2>
+    <div class="form-row">
+        <div class="form-group">
+            <label>Workout Name</label>
+            <input type="text" id="workout-name" placeholder="e.g. Morning Push Session">
+        </div>
+        <div class="form-group">
+            <label>Duration (min)</label>
+            <input type="number" id="workout-duration" placeholder="45">
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Notes</label>
+        <textarea id="workout-notes" rows="2" placeholder="How did it feel?"></textarea>
+    </div>
+
+    <h3 class="mt-16">Exercises</h3>
+    <div id="workout-exercises"></div>
+
+    <div class="mt-8">
+        <div class="form-row">
+            <div class="form-group" style="flex:2">
+                <select id="add-exercise-select">
+                    <option value="">Select exercise to add...</option>
+                </select>
+            </div>
+            <div class="form-group" style="flex:0">
+                <button class="btn" onclick="addExerciseToWorkout()">Add</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="btn-group mt-16">
+        <button class="btn btn-success btn-lg" onclick="saveWorkout()">Save Workout</button>
+        <button class="btn" onclick="cancelWorkout()">Cancel</button>
+    </div>
+</div>
+
+<!-- Workout History -->
+<h2 class="mt-24">History</h2>
+<div id="workout-history"></div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/tracker.js"></script>
+{% endblock %}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Calisthenics{% endblock %} | CaliTrack</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="app-layout">
+        <nav class="sidebar">
+            <div class="nav-brand">
+                <span class="brand-icon">&#9878;</span>
+                <span class="brand-text">CaliTrack</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/" class="nav-link {% if active == 'dashboard' %}active{% endif %}">
+                    <span class="nav-icon">&#9632;</span><span class="nav-label">Dashboard</span>
+                </a></li>
+                <li><a href="/track" class="nav-link {% if active == 'tracker' %}active{% endif %}">
+                    <span class="nav-icon">&#9998;</span><span class="nav-label">Tracker</span>
+                </a></li>
+                <li><a href="/generate" class="nav-link {% if active == 'generator' %}active{% endif %}">
+                    <span class="nav-icon">&#9881;</span><span class="nav-label">Generator</span>
+                </a></li>
+                <li><a href="/progressions" class="nav-link {% if active == 'progressions' %}active{% endif %}">
+                    <span class="nav-icon">&#9650;</span><span class="nav-label">Progress</span>
+                </a></li>
+                <li><a href="/exercises" class="nav-link {% if active == 'exercises' %}active{% endif %}">
+                    <span class="nav-icon">&#9733;</span><span class="nav-label">Exercises</span>
+                </a></li>
+                <li><a href="/settings" class="nav-link {% if active == 'settings' %}active{% endif %}">
+                    <span class="nav-icon">&#9881;</span><span class="nav-label">Settings</span>
+                </a></li>
+            </ul>
+        </nav>
+        <main class="content">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+    <!-- Video Demo Modal -->
+    <div class="video-modal" id="video-modal" onclick="if(event.target===this)closeVideoModal()">
+        <div class="video-modal-content">
+            <button class="video-modal-close" onclick="closeVideoModal()">&times;</button>
+            <div class="video-modal-title" id="video-modal-title"></div>
+            <div id="video-modal-body"></div>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

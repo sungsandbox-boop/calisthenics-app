@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Settings{% endblock %}
+{% block content %}
+<h1>Settings</h1>
+
+<div class="card">
+    <h2>Profile</h2>
+    <div class="form-group">
+        <label>Name</label>
+        <input type="text" id="profile-name" value="{{ profile.name }}">
+    </div>
+    <div class="form-group">
+        <label>Skill Level</label>
+        <select id="profile-level">
+            <option value="beginner" {% if profile.skill_level == 'beginner' %}selected{% endif %}>Beginner</option>
+            <option value="intermediate" {% if profile.skill_level == 'intermediate' %}selected{% endif %}>Intermediate</option>
+            <option value="advanced" {% if profile.skill_level == 'advanced' %}selected{% endif %}>Advanced</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Goals</label>
+        <textarea id="profile-goals" rows="2">{{ profile.goals }}</textarea>
+    </div>
+    <button class="btn btn-primary" onclick="saveProfile()">Save Profile</button>
+</div>
+
+<div class="card mt-16">
+    <h2>Data</h2>
+    <div class="btn-group">
+        <button class="btn" onclick="exportData()">Export All Data (JSON)</button>
+        <label class="btn" style="cursor:pointer">
+            Import Data
+            <input type="file" accept=".json" onchange="importData(event)" style="display:none">
+        </label>
+    </div>
+</div>
+
+<div class="card mt-16">
+    <h2>Danger Zone</h2>
+    <button class="btn btn-danger" onclick="resetProgress()">Reset All Progressions</button>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+async function saveProfile() {
+    await api('/api/profile', {
+        method: 'PUT',
+        body: JSON.stringify({
+            name: document.getElementById('profile-name').value,
+            skill_level: document.getElementById('profile-level').value,
+            goals: document.getElementById('profile-goals').value,
+        })
+    });
+    showToast('Profile saved!');
+}
+
+async function exportData() {
+    const res = await fetch('/api/export');
+    const data = await res.json();
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `calisthenics-backup-${new Date().toISOString().slice(0,10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('Data exported!');
+}
+
+async function importData(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    if (!confirm('This will merge imported data with your current data. Continue?')) return;
+    const text = await file.text();
+    const data = JSON.parse(text);
+    await api('/api/import', {
+        method: 'POST',
+        body: JSON.stringify(data)
+    });
+    showToast('Data imported!');
+    setTimeout(() => location.reload(), 1000);
+}
+
+async function resetProgress() {
+    if (!confirm('Reset all progression status to step 1? This cannot be undone.')) return;
+    await api('/api/progressions/reset', { method: 'POST' });
+    showToast('Progressions reset');
+}
+</script>
+{% endblock %}

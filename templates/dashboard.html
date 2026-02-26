@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h1>Dashboard</h1>
+
+<div class="stat-grid" id="stats-grid">
+    <div class="stat-card">
+        <div class="stat-value" id="stat-streak">-</div>
+        <div class="stat-label">Day Streak</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value" id="stat-week">-</div>
+        <div class="stat-label">This Week</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value" id="stat-total">-</div>
+        <div class="stat-label">Total Workouts</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-value" id="stat-volume">-</div>
+        <div class="stat-label">Total Reps</div>
+    </div>
+</div>
+
+<div class="quick-actions">
+    <a href="/track" class="quick-action">
+        <div class="quick-action-icon">&#9998;</div>
+        <div class="quick-action-label">Log Workout</div>
+    </a>
+    <a href="/generate" class="quick-action">
+        <div class="quick-action-icon">&#9881;</div>
+        <div class="quick-action-label">Generate Routine</div>
+    </a>
+    <a href="/progressions" class="quick-action">
+        <div class="quick-action-icon">&#9650;</div>
+        <div class="quick-action-label">Progressions</div>
+    </a>
+</div>
+
+<div class="card">
+    <h2>Volume by Category (Last 4 Weeks)</h2>
+    <div class="chart-container">
+        <canvas id="volume-chart"></canvas>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/dashboard.js"></script>
+{% endblock %}
